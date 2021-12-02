@@ -1,0 +1,89 @@
+/* Implementation of Queue using Linked list */
+
+using namespace std;
+#include<iostream>
+#include<process.h>
+class Node{
+	private:
+		int info;
+		Node *next;
+	public:
+		Node(){
+			info=0;
+			next=NULL;
+		}
+		void insert(int num);
+		void del();
+		void traverse();	
+};
+
+Node *front, *rear;
+
+void Node::insert(int num){
+	Node *ptr;
+	ptr=new Node;
+	ptr->info=num;
+	ptr->next=NULL;
+	if(front==NULL)
+		front=rear=ptr;
+	else{
+		rear->next=ptr;
+		rear=ptr;
+	}
+}
+
+void Node::del(){
+	Node *ptr;
+	if(front==NULL)
+		cout<<"List is empty!";
+	else{
+		ptr=front;
+		front=front->next;
+		delete ptr;
+	}
+}
+void Node::traverse(){
+	Node *ptr;
+	ptr=front;
+	while(ptr!=NULL){
+		cout<<ptr->info<<"->";
+		ptr=ptr->next;
+	}
+	cout<<"\n";
+}
+
+
+int main(){
+	int choice,num;
+	char ans;
+	front=rear=NULL;
+	Node obj;
+	do{
+		cout<<"************Menu************\n";
+		cout<<"Press 1 to insert an element\n";
+		cout<<"Press 2 to delete an element\n";
+		cout<<"Press 3 to traverse.....\n";
+		cout<<"Press 4 exit\n";
+		cout<<"Enter Choice->";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1:
+				cout<<"enter number";
+				cin>>num;
+				obj.insert(num);
+				break;
+			case 2:
+				obj.del();
+				break;
+			case 3:
+				obj.traverse();
+				break;
+			case 4:
+				exit(0);
+				break;
+		}
+		cout<<"\ndo you want to continue???";
+		cin>>ans;
+	}while(ans=='y'||ans=='Y');
+}
